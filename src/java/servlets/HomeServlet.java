@@ -12,41 +12,26 @@ import models.User;
 
 public class HomeServlet extends HttpServlet {
 
-    
-    
-
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        HttpSession session = request.getSession();
        String username = (String)session.getAttribute("username");
-       //String password = (String)session.getAttribute("password");
+       
        User user = new User();
        user.setUsername(username);
        request.setAttribute("name", user.getUsername());
        
-       if(session.getAttribute("username") != null){
-       getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
-         
-       }else{
+       if(session.getAttribute("username") != null)
+       {
+       getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);       
+       }
+       else
+       {
             request.setAttribute("msg", "You must login first.");
            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
           return;
        }
-  //     if(session.getAttribute(user.getUsername())!= null){
-      
-  //    return;
- //      }
-  //     else{
-           //request.setAttribute("error", "Invalid Login");
-  //         response.sendRedirect("login"); 
-          // 
-   //return;
- //      }
-       
-      // 
-      // return;
     }
 
     
